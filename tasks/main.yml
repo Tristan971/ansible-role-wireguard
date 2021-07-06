@@ -14,8 +14,10 @@
 
 - name: Render client configurations
   loop: "{{ wireguard_clients }}"
-  local_action:
-    module: ansible.builtin.template
+  become: false
+  connection: local
+  delegate_to: localhost
+  ansible.builtin.template:
     src: client.conf.j2
     dest: "{{ wireguard_outputs.path }}/{{ wireguard_outputs.prefix }}{{ item.name }}.conf"
     force: true
