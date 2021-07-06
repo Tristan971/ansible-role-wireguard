@@ -40,4 +40,12 @@
     sysctl_file: 999-wireguard-forwarding.conf
     reload: true
     state: present
-  notify: Restart UFW
+  register: sysctl
+
+- name: Restart UFW
+  block:
+    - community.general.ufw:
+        state: disabled
+    - community.general.ufw:
+        state: enabled
+  when: sysctl.changed

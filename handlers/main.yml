@@ -5,10 +5,3 @@
 - name: Reload UFW
   community.general.ufw:
     state: reloaded
-
-- name: Restart UFW
-  block:
-    - community.general.ufw:
-        state: disabled
-    - community.general.ufw:
-        state: enabled
