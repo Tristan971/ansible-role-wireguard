@@ -12,8 +12,8 @@
       *nat
       :POSTROUTING ACCEPT [0:0]
 
-      #Forward traffic from the Wireguard subnet through the privnet iface
-      -A POSTROUTING -s {{ wireguard_peers_network }} -j MASQUERADE
+      #Forward traffic from Wireguard
+      -A POSTROUTING -s {{ wireguard_peers_network }} -o {{ wireguard_server.gateway_interface }} -j MASQUERADE
 
       COMMIT
     insertbefore: BOF
@@ -26,5 +26,5 @@
     rule: allow
     route: true
     interface_in: "{{ wireguard_interface_name }}"
-    to_ip: 0.0.0.0/0
+    interface_out: "{{ wireguard_server.gateway_interface }}"
     comment: "Wireguard routing"
