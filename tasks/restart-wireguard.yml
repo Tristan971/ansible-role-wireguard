@@ -5,15 +5,15 @@
 
 - name: Stop Wireguard
   ansible.builtin.shell:
-    cmd: "/usr/bin/env wg-quick down {{ wireguard_interface_name }}"
-  register: stop
+    cmd: "wg-quick down {{ wireguard_interface_name }} 2>&1"
+  register: wg_down
   when: wg_iface_check.stat.exists
 - ansible.builtin.debug:
-    msg: "{{ stop.stdout_lines | join('\n') }}"
+    msg: "{{ wg_down.stdout_lines | join('\n') }}"
 
 - name: Start Wireguard
   ansible.builtin.shell:
-    cmd: "/usr/bin/env wg-quick up /etc/wireguard/{{ wireguard_interface_name }}.conf"
-  register: start
+    cmd: "wg-quick up /etc/wireguard/{{ wireguard_interface_name }}.conf 2>&1"
+  register: wg_up
 - ansible.builtin.debug:
-    msg: "{{ start.stdout_lines | join('\n') }}"
+    msg: "{{ wg_up.stdout_lines | join('\n') }}"
