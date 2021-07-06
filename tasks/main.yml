@@ -7,7 +7,7 @@
 - name: Render server configuration
   ansible.builtin.template:
     src: server.conf.j2
-    dest: /etc/wireguard/{{ wireguard.interface_name }}.conf
+    dest: /etc/wireguard/{{ wireguard_interface_name }}.conf
     mode: 0600
     force: true
   notify: Restart Wireguard
@@ -15,10 +15,10 @@
 - name: Render client configurations
   connection: local
   delegate_to: localhost
-  loop: "{{ wireguard.clients }}"
+  loop: "{{ wireguard_clients }}"
   ansible.builtin.template:
     src: client.conf.j2
-    dest: "{{ wireguard.outputs.path }}/{{ wireguard.outputs.prefix }}{{ item.name }}.conf"
+    dest: "{{ wireguard_outputs.path }}/{{ wireguard_outputs.prefix }}{{ item.name }}.conf"
     force: true
   vars:
     client: "{{ item }}"

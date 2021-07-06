@@ -1,11 +1,11 @@
 - name: Check if Wireguard interface exists already
   ansible.builtin.stat:
-    path: "/sys/class/net/{{ wireguard.interface_name }}"
+    path: "/sys/class/net/{{ wireguard_interface_name }}"
   register: wg_iface_check
 
 - name: Stop Wireguard
   ansible.builtin.shell:
-    cmd: "/usr/bin/env wg-quick down {{ wireguard.interface_name }}"
+    cmd: "/usr/bin/env wg-quick down {{ wireguard_interface_name }}"
   register: stop
   when: wg_iface_check.stat.exists
 - ansible.builtin.debug:
@@ -13,7 +13,7 @@
 
 - name: Start Wireguard
   ansible.builtin.shell:
-    cmd: "/usr/bin/env wg-quick up /etc/wireguard/{{ wireguard.interface_name }}.conf"
+    cmd: "/usr/bin/env wg-quick up /etc/wireguard/{{ wireguard_interface_name }}.conf"
   register: start
 - ansible.builtin.debug:
     msg: "{{ start.stdout_lines | join('\n') }}"

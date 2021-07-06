@@ -1,7 +1,7 @@
 - name: Open Wireguard port
   community.general.ufw:
     rule: allow
-    to_port: "{{ wireguard.server.public.port }}"
+    to_port: "{{ wireguard_server.public.port }}"
     protocol: udp
     comment: "Wireguard"
 
@@ -13,7 +13,7 @@
       :POSTROUTING ACCEPT [0:0]
 
       #Forward traffic from the Wireguard subnet through the privnet iface
-      -A POSTROUTING -s {{ wireguard.peers_network }} -j MASQUERADE
+      -A POSTROUTING -s {{ wireguard_peers_network }} -j MASQUERADE
 
       COMMIT
     insertbefore: BOF
@@ -25,5 +25,5 @@
   community.general.ufw:
     rule: allow
     route: true
-    interface_in: "{{ wireguard.interface_name }}"
+    interface_in: "{{ wireguard_interface_name }}"
     comment: "Wireguard routing"
