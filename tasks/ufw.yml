@@ -6,7 +6,7 @@
     comment: "Wireguard"
 
 - name: Ensure masquerading for Wireguard traffic
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/ufw/before.rules
     block: |
       *nat

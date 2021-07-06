@@ -1,6 +1,6 @@
 ---
 - name: Restart Wireguard
-  import_tasks: restart-wireguard.yml
+  ansible.builtin.include_tasks: restart-wireguard.yml
 
 - name: Reload UFW
   community.general.ufw:
