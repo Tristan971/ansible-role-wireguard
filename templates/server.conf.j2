@@ -1,5 +1,5 @@
 [Interface]
-Address = {{ ([] + wireguard_server.private.peer_ip + wireguard_tunneled_cidrs) | join(',') }}
+Address = {{ wireguard_server.private.peer_ip }},{{ wireguard_tunneled_cidrs | join(',') }}
 ListenPort = {{ wireguard_server.public.listen_port }}
 PrivateKey = {{ wireguard_server.keypair.private }}
 
