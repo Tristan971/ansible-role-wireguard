@@ -1,3 +1,4 @@
+---
 - name: Restart Wireguard
   import_tasks: restart-wireguard.yml
 
