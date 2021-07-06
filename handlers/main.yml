@@ -1,19 +1,5 @@
 - name: Restart Wireguard
-  block:
-    - name: Check if Wireguard interface exists already
-      ansible.builtin.stat:
-        path: "/sys/class/net/{{ wireguard.interface_name }}"
-      register: wg_iface_check
-
-    - name: Stop Wireguard
-      ansible.builtin.shell:
-        cmd: "/usr/bin/env wg-quick down {{ wireguard.interface_name }}"
-      when: wg_iface_check.stat.exists
-
-    - name: Start Wireguard
-      ansible.builtin.shell:
-        cmd: "/usr/bin/env wg-quick up /etc/wireguard/{{ wireguard.interface_name }}.conf"
-      register: wg_start
+  import_tasks: restart-wireguard.yml
 
 - name: Reload UFW
   community.general.ufw:
