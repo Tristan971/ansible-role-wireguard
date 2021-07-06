@@ -21,9 +21,16 @@
     marker_end: "# Wireguard masquerading - END"
   notify: Reload UFW
 
-- name: Allow routing from Wireguard
+- name: Allow routing from Wireguard clients
   community.general.ufw:
     rule: allow
     route: true
     interface_in: "{{ wireguard_interface_name }}"
-    comment: "Wireguard routing"
+    comment: "Wireguard: client->server routing"
+
+- name: Allow routing to Wireguard clients
+  community.general.ufw:
+    rule: allow
+    route: true
+    interface_out: "{{ wireguard_interface_name }}"
+    comment: "Wireguard: server->client routing"
