@@ -13,7 +13,7 @@
   notify: Restart Wireguard
 
 - name: Render client configurations
-  connection: local
+  become: false
   delegate_to: localhost
   loop: "{{ wireguard_clients }}"
   ansible.builtin.template:
