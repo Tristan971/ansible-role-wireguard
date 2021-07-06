@@ -1,5 +1,5 @@
 [Interface]
-Address = {{ wireguard_server.public.address }},{{ wireguard_server.private.peer_ip }}
+Address = {{ wireguard_server.public.ip }},{{ wireguard_server.private.peer_ip }}
 ListenPort = {{ wireguard_server.public.port }}
 PrivateKey = {{ wireguard_server.keypair.private }}
 

@@ -3,7 +3,7 @@ Address = {{ client.peer_ip }}/32
 PrivateKey = {{ client.keypair.private }}
 
 [Peer]
-Endpoint = {{ wireguard_server.public.address }}:{{ wireguard_server.public.port }}
+Endpoint = {{ wireguard_server.public.host }}:{{ wireguard_server.public.port }}
 PublicKey = {{ wireguard_server.keypair.public }}
 AllowedIPs = {{ wireguard_tunneled_cidrs | join(',') }}
 PersistentKeepalive = 25
