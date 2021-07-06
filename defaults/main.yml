@@ -8,7 +8,6 @@ wireguard_tunneled_cidrs:
 wireguard_server:
   public:
     client_endpoint: vpn.example.com:51820
-    listen_ip: 0.0.0.0
     listen_port: 51820
   private:
     peer_ip: 192.168.2.1
