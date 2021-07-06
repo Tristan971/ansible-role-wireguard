@@ -1,7 +1,7 @@
 - name: Open Wireguard port
   community.general.ufw:
     rule: allow
-    to_port: "{{ wireguard_server.public.port }}"
+    to_port: "{{ wireguard_server.public.listen_port }}"
     protocol: udp
     comment: "Wireguard"
 
