@@ -13,10 +13,9 @@
   notify: Restart Wireguard
 
 - name: Render client configurations
-  become: false
-  delegate_to: localhost
   loop: "{{ wireguard_clients }}"
-  ansible.builtin.template:
+  local_action:
+    module: ansible.builtin.template
     src: client.conf.j2
     dest: "{{ wireguard_outputs.path }}/{{ wireguard_outputs.prefix }}{{ item.name }}.conf"
     force: true
