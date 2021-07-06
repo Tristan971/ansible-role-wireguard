@@ -13,7 +13,7 @@
       :POSTROUTING ACCEPT [0:0]
 
       #Forward traffic from Wireguard
-      -A POSTROUTING -s {{ wireguard_peers_network }} -o {{ wireguard_server.gateway_interface }} -j MASQUERADE
+      -A POSTROUTING -o {{ wireguard_server.gateway_interface }} -j MASQUERADE
 
       COMMIT
     insertbefore: BOF
@@ -26,15 +26,7 @@
     rule: allow
     route: true
     interface_in: "{{ wireguard_interface_name }}"
-    interface_out: "{{ wireguard_server.gateway_interface }}"
     comment: "Wireguard routing"
-- name: Allow routing to Wireguard clients
-  community.general.ufw:
-    rule: allow
-    route: true
-    interface_out: "{{ wireguard_interface_name }}"
-    interface_in: "{{ wireguard_server.gateway_interface }}"
-    comment: "Wireguard back-routing"
 
 - name: Enable packet forwarding at the kernel level
   loop:
