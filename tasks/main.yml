@@ -1,0 +1,26 @@
+- name: Ensure Wireguard installed
+  ansible.builtin.package:
+    name: "wireguard"
+    state: latest
+  notify: Restart Wireguard
+
+- name: Render server configuration
+  template:
+    src: server.conf.j2
+    dest: /etc/wireguard/{{ wireguard.interface_name }}.conf
+    force: true
+  notify: Restart Wireguard
+
+- name: Render client configurations
+  delegate_to: localhost
+  loop: "{{ wireguard.clients }}"
+  template:
+    src: client.conf.j2
+    dest: "{{ wireguard.outputs.path }}/{{ wireguard.outputs.prefix }}{{ item.name }}.conf"
+    force: true
+  vars:
+    client: "{{ item }}"
+
+- name: Configure UFW
+  import_tasks: ufw.yml
+  tags: ufw

@@ -1,0 +1,28 @@
+wireguard:
+  interface_name: wg0
+  peers_network: 192.168.2.0/24
+
+  tunneled_cidrs:
+    # default to full tunnel
+    - 0.0.0.0/0
+
+  server:
+    public:
+      address: 0.0.0.0
+      port: 51820
+    private:
+      peer_ip: 192.168.2.1
+    keypair:
+      public: abcd
+      private: efgh
+
+  clients: []
+  # - name: user
+  #   peer_ip: 192.168.2.2
+  #   keypair:
+  #     public: abcd
+  #     private: efgh
+
+  outputs:
+    path: "{{ role_path }}/outputs/clients"
+    prefix: ""
