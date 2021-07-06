@@ -10,6 +10,7 @@
   when: wg_iface_check.stat.exists
 - ansible.builtin.debug:
     msg: "{{ wg_down.stdout_lines | join('\n') }}"
+  when: wg_down is defined and wg_down.stdout_lines is defined
 
 - name: Start Wireguard
   ansible.builtin.shell:
