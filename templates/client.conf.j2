@@ -5,5 +5,5 @@ PrivateKey = {{ client.keypair.private }}
 [Peer]
 Endpoint = {{ wireguard_server.public.client_endpoint }}
 PublicKey = {{ wireguard_server.keypair.public }}
-AllowedIPs = {{ wireguard_tunneled_cidrs | join(',') }}
+AllowedIPs = {{ wireguard_server.private.peer_ip }},{{ wireguard_tunneled_cidrs | join(',') }}
 PersistentKeepalive = 25
